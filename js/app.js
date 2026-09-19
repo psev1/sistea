@@ -1,0 +1,64 @@
+/**
+ * SISTEA — Point d'entrée principal
+ * Navigation, thème, horloge, initialisation des modules
+ */
+
+import { initMap, invalidateMapSize } from './map.js';
+import { initCommand } from './command.js';
+import { initAlerts } from './alerts.js';
+import { initDataPage } from './data-page.js';
+import { initReports } from './reports.js';
+import { initSettings } from './settings.js';
+import { setState } from './state.js';
+import { $ } from './utils.js';
+
+/* ══ HORLOGE ══ */
+function updateClock() {
+    const n = new Date();
+    $('utc-clock').textContent =
+        String(n.getUTCHours()).padStart(2, '0') + ':' +
+        String(n.getUTCMinutes()).padStart(2, '0') + ':' +
+        String(n.getUTCSeconds()).padStart(2, '0') + ' UTC';
+}
+
+/* ══ THÈME ══ */
+function toggleTheme() {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    $('theme-btn').textContent = isDark ? '☀' : '☾';
+    setState({ theme: isDark ? 'dark' : 'light' });
+    setTimeout(() => invalidateMapSize(), 60);
+}
+
+/* ══ NAVIGATION ══ */
+function showPage(id, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    $('pg-' + id).classList.add('active');
+    document.querySelectorAll('.sb-nav').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+    $('layer-pills-wrap').style.display = id === 'map' ? 'flex' : 'none';
+    setState({ currentPage: id });
+    if (id === 'map') setTimeout(() => invalidateMapSize(), 60);
+}
+
+/* ══ INITIALISATION ══ */
+function init() {
+    // Horloge
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Modules
+    initMap();
+    initCommand();
+    initAlerts();
+    initDataPage();
+    initReports();
+    initSettings();
+
+    // Exposer les fonctions utilisées dans le HTML (onclick)
+    window.showPage = showPage;
+    window.toggleTheme = toggleTheme;
+}
+
+// Démarrage
+document.addEventListener('DOMContentLoaded', init);
