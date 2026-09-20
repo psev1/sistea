@@ -55,6 +55,13 @@ function init() {
     initReports();
     initSettings();
 
+    // Recalcul carte au redimensionnement (responsive)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => invalidateMapSize(), 120);
+    });
+
     // Exposer les fonctions utilisées dans le HTML (onclick)
     window.showPage = showPage;
     window.toggleTheme = toggleTheme;

@@ -1704,26 +1704,344 @@ button {
 
 /* ── RESPONSIVE ── */
 
-@media (max-width:900px) {
-     :root {
+/* Tablette */
+@media (max-width: 900px) {
+    :root {
         --rw: 0px
     }
+
     #rp-map {
         display: none
     }
+
     #tb {
         flex-wrap: wrap;
         height: auto;
+        min-height: var(--th);
         padding: 8px 12px;
         gap: 8px
     }
+
     .tb-badges {
         order: 3;
         width: 100%;
-        overflow-x: auto
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch
     }
+
+    .tb-sep {
+        display: none
+    }
+
     .data-grid-3 {
         grid-template-columns: 1fr 1fr
+    }
+
+    .data-grid-4 {
+        grid-template-columns: 1fr 1fr
+    }
+
+    .cmd-grid {
+        grid-template-columns: 1fr
+    }
+
+    .reports-filters {
+        flex-wrap: wrap
+    }
+
+    .filter-group {
+        min-width: calc(50% - 8px)
+    }
+
+    .reports-header {
+        flex-direction: column;
+        align-items: flex-start
+    }
+
+    .settings-sidebar {
+        width: 180px;
+        min-width: 180px
+    }
+
+    #wc {
+        width: 180px;
+        padding: 10px 12px
+    }
+
+    #ws {
+        width: 180px
+    }
+
+    #wo {
+        width: 170px
+    }
+
+    #wl {
+        max-width: 240px;
+        min-width: 200px
+    }
+
+    .fw-val {
+        font-size: 22px
+    }
+}
+
+/* Mobile landscape / grande phone */
+@media (max-width: 700px) {
+    #app {
+        flex-direction: column
+    }
+
+    #sb {
+        order: 2;
+        width: 100%;
+        min-width: 100%;
+        height: 56px;
+        min-height: 56px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 6px;
+        gap: 0;
+        border-right: none;
+        border-top: 1px solid var(--border)
+    }
+
+    .sb-logo {
+        display: none
+    }
+
+    .sb-div {
+        display: none
+    }
+
+    .sb-avatar {
+        display: none
+    }
+
+    .sb-nav {
+        width: 42px;
+        height: 42px
+    }
+
+    .sb-nav .sb-tooltip {
+        display: none
+    }
+
+    #main {
+        order: 1;
+        flex: 1;
+        min-height: 0;
+        width: 100%
+    }
+
+    #tb {
+        padding: 6px 10px
+    }
+
+    .tb-title {
+        font-size: 15px
+    }
+
+    .layer-pills {
+        overflow-x: auto;
+        max-width: 140px
+    }
+
+    .lpill {
+        padding: 3px 6px;
+        font-size: 11px
+    }
+
+    .tb-clock {
+        font-size: 11px;
+        padding: 3px 6px
+    }
+
+    /* Widgets carte : simplifier */
+    #wo {
+        display: none
+    }
+
+    #ygg {
+        display: none
+    }
+
+    #wc {
+        top: 8px;
+        left: 8px;
+        width: min(160px, 42vw);
+        padding: 8px 10px
+    }
+
+    #ws {
+        top: 8px;
+        right: 8px;
+        width: min(160px, 42vw);
+        padding: 8px 10px
+    }
+
+    #wl {
+        bottom: 58px;
+        left: 8px;
+        right: 8px;
+        transform: none;
+        max-width: none;
+        min-width: 0;
+        width: auto
+    }
+
+    #tl {
+        padding: 0 8px;
+        gap: 8px
+    }
+
+    #tl-date {
+        min-width: 56px;
+        font-size: 11px
+    }
+
+    .tl-years {
+        display: none
+    }
+
+    #pg-alerts,
+    #pg-data,
+    #pg-command,
+    #pg-reports {
+        padding: 14px 12px
+    }
+
+    .alerts-wrap,
+    .data-wrap,
+    .cmd-wrap,
+    .reports-wrap {
+        max-width: 100%
+    }
+
+    .settings-container {
+        flex-direction: column
+    }
+
+    .settings-sidebar {
+        width: 100%;
+        min-width: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 8px 0
+    }
+
+    .settings-menu {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0;
+        padding: 0 8px
+    }
+
+    .settings-item {
+        flex-shrink: 0;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        padding: 8px 12px;
+        font-size: 12px
+    }
+
+    .settings-item.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--ac)
+    }
+
+    .settings-item span {
+        white-space: nowrap
+    }
+
+    .settings-content {
+        padding: 14px 12px
+    }
+
+    .report-item {
+        flex-wrap: wrap
+    }
+
+    .report-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 6px
+    }
+
+    .af-body {
+        gap: 4px
+    }
+
+    .sensor-row {
+        flex-wrap: wrap;
+        gap: 6px
+    }
+
+    .sensor-name {
+        width: 100%
+    }
+}
+
+/* Petit mobile */
+@media (max-width: 480px) {
+    .data-grid-3,
+    .data-grid-4 {
+        grid-template-columns: 1fr
+    }
+
+    .tb-badges .badge {
+        font-size: 11px;
+        padding: 2px 6px
+    }
+
+    #wc,
+    #ws {
+        width: min(148px, 46vw);
+        font-size: 12px
+    }
+
+    .fw-val {
+        font-size: 18px
+    }
+
+    .ws-site {
+        font-size: 12px
+    }
+
+    #wl {
+        padding: 8px 10px
+    }
+
+    .wl-legend {
+        font-size: 9px
+    }
+
+    .filter-group {
+        min-width: 100%
+    }
+
+    .reports-filters {
+        flex-direction: column
+    }
+
+    .report-preview-content {
+        width: calc(100vw - 16px);
+        max-height: 90vh;
+        padding: 14px
+    }
+
+    .report-preview-grid {
+        grid-template-columns: 1fr
+    }
+
+    .cmd-payloads {
+        flex-direction: column
+    }
+
+    .badge-info {
+        display: none
     }
 }
 
