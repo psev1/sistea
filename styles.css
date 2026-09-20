@@ -10,9 +10,11 @@ html,
 body {
     width: 100%;
     height: 100%;
+    height: 100dvh;
     overflow: hidden;
     font-family: 'DM Sans', sans-serif;
-    font-size: 15px
+    font-size: 15px;
+    -webkit-text-size-adjust: 100%
 }
 
 :root {
@@ -145,8 +147,10 @@ button {
 
 #app {
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
     overflow: hidden;
     background: var(--bg);
     transition: background .3s ease
@@ -1786,130 +1790,137 @@ button {
     }
 }
 
-/* Mobile landscape / grande phone */
-@media (max-width: 700px) {
+/* Mobile : carte seule + navigation bas toujours visible */
+@media (max-width: 768px) {
     #app {
-        flex-direction: column
+        flex-direction: column;
+        height: 100dvh;
+        max-height: 100dvh
     }
 
+    /* Barre de navigation en bas (remplace la sidebar gauche) */
     #sb {
         order: 2;
+        position: relative;
+        z-index: 500;
         width: 100%;
-        min-width: 100%;
-        height: 56px;
+        min-width: 0;
+        height: auto;
         min-height: 56px;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        padding: 0 6px;
+        padding: 6px 4px;
+        padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
         gap: 0;
         border-right: none;
-        border-top: 1px solid var(--border)
+        border-top: 1px solid var(--border);
+        background: var(--ss);
+        flex-shrink: 0
     }
 
-    .sb-logo {
-        display: none
-    }
-
-    .sb-div {
-        display: none
-    }
-
+    .sb-logo,
+    .sb-div,
     .sb-avatar {
-        display: none
+        display: none !important
     }
 
     .sb-nav {
-        width: 42px;
-        height: 42px
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0
     }
 
     .sb-nav .sb-tooltip {
-        display: none
+        display: none !important
     }
 
     #main {
         order: 1;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        overflow: hidden
+    }
+
+    /* Topbar compacte */
+    #tb {
+        padding: 6px 8px;
+        min-height: 44px;
+        height: auto;
+        flex-shrink: 0
+    }
+
+    .tb-title {
+        font-size: 14px
+    }
+
+    .tb-badges {
+        display: none !important
+    }
+
+    .tb-sep {
+        display: none
+    }
+
+    .layer-pills {
+        overflow-x: auto;
+        max-width: none;
+        flex: 1;
+        -webkit-overflow-scrolling: touch
+    }
+
+    .lpill {
+        padding: 4px 8px;
+        font-size: 11px;
+        flex-shrink: 0
+    }
+
+    .tb-clock {
+        font-size: 10px;
+        padding: 3px 6px
+    }
+
+    .theme-btn {
+        width: 28px;
+        height: 28px
+    }
+
+    /* ── Carte seule : masquer tous les widgets flottants ── */
+    #wc,
+    #wo,
+    #ws,
+    #wl,
+    #ygg,
+    #tl,
+    #sl,
+    #rp-map {
+        display: none !important
+    }
+
+    #pg-map {
+        flex-direction: column
+    }
+
+    #mz {
         flex: 1;
         min-height: 0;
         width: 100%
     }
 
-    #tb {
-        padding: 6px 10px
+    #map {
+        width: 100%;
+        height: 100%
     }
 
-    .tb-title {
-        font-size: 15px
-    }
-
-    .layer-pills {
-        overflow-x: auto;
-        max-width: 140px
-    }
-
-    .lpill {
-        padding: 3px 6px;
-        font-size: 11px
-    }
-
-    .tb-clock {
-        font-size: 11px;
-        padding: 3px 6px
-    }
-
-    /* Widgets carte : simplifier */
-    #wo {
-        display: none
-    }
-
-    #ygg {
-        display: none
-    }
-
-    #wc {
-        top: 8px;
-        left: 8px;
-        width: min(160px, 42vw);
-        padding: 8px 10px
-    }
-
-    #ws {
-        top: 8px;
-        right: 8px;
-        width: min(160px, 42vw);
-        padding: 8px 10px
-    }
-
-    #wl {
-        bottom: 58px;
-        left: 8px;
-        right: 8px;
-        transform: none;
-        max-width: none;
-        min-width: 0;
-        width: auto
-    }
-
-    #tl {
-        padding: 0 8px;
-        gap: 8px
-    }
-
-    #tl-date {
-        min-width: 56px;
-        font-size: 11px
-    }
-
-    .tl-years {
-        display: none
-    }
-
+    /* Autres pages */
     #pg-alerts,
     #pg-data,
     #pg-command,
     #pg-reports {
-        padding: 14px 12px
+        padding: 12px 10px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch
     }
 
     .alerts-wrap,
@@ -1917,6 +1928,15 @@ button {
     .cmd-wrap,
     .reports-wrap {
         max-width: 100%
+    }
+
+    .data-grid-3,
+    .data-grid-4 {
+        grid-template-columns: 1fr
+    }
+
+    .cmd-grid {
+        grid-template-columns: 1fr
     }
 
     .settings-container {
@@ -1928,7 +1948,7 @@ button {
         min-width: 0;
         border-right: none;
         border-bottom: 1px solid var(--border);
-        padding: 8px 0
+        padding: 6px 0
     }
 
     .settings-menu {
@@ -1936,7 +1956,7 @@ button {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         gap: 0;
-        padding: 0 8px
+        padding: 0 6px
     }
 
     .settings-item {
@@ -1957,7 +1977,21 @@ button {
     }
 
     .settings-content {
-        padding: 14px 12px
+        padding: 12px 10px
+    }
+
+    .reports-filters {
+        flex-direction: column
+    }
+
+    .filter-group {
+        min-width: 100%
+    }
+
+    .reports-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px
     }
 
     .report-item {
@@ -1970,65 +2004,9 @@ button {
         margin-top: 6px
     }
 
-    .af-body {
-        gap: 4px
-    }
-
-    .sensor-row {
-        flex-wrap: wrap;
-        gap: 6px
-    }
-
-    .sensor-name {
-        width: 100%
-    }
-}
-
-/* Petit mobile */
-@media (max-width: 480px) {
-    .data-grid-3,
-    .data-grid-4 {
-        grid-template-columns: 1fr
-    }
-
-    .tb-badges .badge {
-        font-size: 11px;
-        padding: 2px 6px
-    }
-
-    #wc,
-    #ws {
-        width: min(148px, 46vw);
-        font-size: 12px
-    }
-
-    .fw-val {
-        font-size: 18px
-    }
-
-    .ws-site {
-        font-size: 12px
-    }
-
-    #wl {
-        padding: 8px 10px
-    }
-
-    .wl-legend {
-        font-size: 9px
-    }
-
-    .filter-group {
-        min-width: 100%
-    }
-
-    .reports-filters {
-        flex-direction: column
-    }
-
     .report-preview-content {
         width: calc(100vw - 16px);
-        max-height: 90vh;
+        max-height: 88dvh;
         padding: 14px
     }
 
@@ -2040,8 +2018,13 @@ button {
         flex-direction: column
     }
 
-    .badge-info {
-        display: none
+    .sensor-name {
+        width: 100%
+    }
+
+    .sensor-row {
+        flex-wrap: wrap;
+        gap: 6px
     }
 }
 
