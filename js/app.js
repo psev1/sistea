@@ -25,7 +25,9 @@ function updateClock() {
 function toggleTheme() {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
-    $('theme-btn').textContent = isDark ? '☀' : '☾';
+    const btn = $('theme-btn');
+    btn.textContent = isDark ? '☀' : '☾';
+    btn.setAttribute('aria-label', isDark ? 'Passer en thème clair' : 'Passer en thème sombre');
     setState({ theme: isDark ? 'dark' : 'light' });
     setTimeout(() => invalidateMapSize(), 60);
 }
@@ -34,8 +36,12 @@ function toggleTheme() {
 function showPage(id, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     $('pg-' + id).classList.add('active');
-    document.querySelectorAll('.sb-nav').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.sb-nav').forEach(n => {
+        n.classList.remove('active');
+        n.removeAttribute('aria-current');
+    });
     el.classList.add('active');
+    el.setAttribute('aria-current', 'page');
     $('layer-pills-wrap').style.display = id === 'map' ? 'flex' : 'none';
     setState({ currentPage: id });
     if (id === 'map') setTimeout(() => invalidateMapSize(), 60);

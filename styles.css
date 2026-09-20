@@ -23,20 +23,20 @@ body {
     --ss: #f3f4f6;
     --border: rgba(15, 23, 42, .14);
     --bl: rgba(15, 23, 42, .07);
-    /* Textes plus contrastés */
+    /* Textes WCAG AA */
     --tp: #0a0f1a;
-    --ts: #475569;
-    --tm: #64748b;
-    /* Accents un peu plus profonds */
+    --ts: #3f4b5a;
+    --tm: #4b5563;
+    /* Accents WCAG AA (≥ 4.5:1 sur surface claire) */
     --ac: #3b5bdb;
-    --gr: #16a34a;
-    --gl: rgba(22, 163, 74, .14);
-    --or: #ea580c;
-    --ol: rgba(234, 88, 12, .14);
-    --re: #dc2626;
-    --rl: rgba(220, 38, 38, .14);
-    --te: #0891b2;
-    --tl: rgba(8, 145, 178, .14);
+    --gr: #15803d;
+    --gl: rgba(21, 128, 61, .14);
+    --or: #c2410c;
+    --ol: rgba(194, 65, 12, .14);
+    --re: #b91c1c;
+    --rl: rgba(185, 28, 28, .14);
+    --te: #0e7490;
+    --tl: rgba(14, 116, 144, .14);
     --sw: 56px;
     --th: 52px;
     --rw: 264px;
@@ -49,20 +49,20 @@ body {
 .dark {
     --bg: #0f1117;
     --ss: #1c1f2b;
-    --border: rgba(255, 255, 255, .09);
-    --bl: rgba(255, 255, 255, .06);
+    --border: rgba(255, 255, 255, .12);
+    --bl: rgba(255, 255, 255, .08);
     --tp: #e8eaf0;
-    --ts: #9ba3b8;
-    --tm: #5c6480;
-    --ac: #6b84f8;
-    --gr: #34d471;
-    --gl: rgba(52, 212, 113, .15);
+    --ts: #b0b8c9;
+    --tm: #8b93a7;
+    --ac: #8ba3ff;
+    --gr: #4ade80;
+    --gl: rgba(74, 222, 128, .15);
     --or: #fb923c;
     --ol: rgba(251, 146, 60, .15);
     --re: #f87171;
     --rl: rgba(248, 113, 113, .15);
-    --te: #22d3ee;
-    --tl: rgba(34, 211, 238, .15);
+    --te: #67e8f9;
+    --tl: rgba(103, 232, 249, .15);
     --sf: 0 8px 32px rgba(0, 0, 0, .6), 0 2px 8px rgba(0, 0, 0, .4);
     --sc: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .25);
 }
@@ -203,7 +203,10 @@ button {
     transition: all .15s;
     border: 1px solid transparent;
     position: relative;
-    flex-shrink: 0
+    flex-shrink: 0;
+    background: none;
+    padding: 0;
+    font: inherit
 }
 
 .sb-nav:hover {
@@ -316,17 +319,17 @@ button {
 
 .badge-ok {
     background: var(--gl);
-    color: #16a34a
+    color: var(--gr)
 }
 
 .badge-warn {
     background: var(--ol);
-    color: #c2410c
+    color: var(--or)
 }
 
 .badge-info {
     background: var(--tl);
-    color: #0e7490
+    color: var(--te)
 }
 
 .badge-dot {
@@ -337,15 +340,15 @@ button {
 }
 
 .badge-ok .badge-dot {
-    background: #16a34a
+    background: var(--gr)
 }
 
 .badge-warn .badge-dot {
-    background: #c2410c
+    background: var(--or)
 }
 
 .badge-info .badge-dot {
-    background: #0e7490
+    background: var(--te)
 }
 
 .tb-sep {
@@ -371,7 +374,11 @@ button {
     background: var(--bg);
     color: var(--ts);
     border: 1px solid var(--border);
-    transition: all .15s
+    transition: all .15s;
+    font: inherit;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500
 }
 
 .lpill.active {

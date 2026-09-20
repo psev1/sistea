@@ -249,14 +249,11 @@ function initLayerLegend(key) {
 }
 
 export function switchLayer(key, el) {
-    if (el) {
-        document.querySelectorAll('.lpill').forEach(p => p.classList.remove('active'));
-        el.classList.add('active');
-    } else {
-        document.querySelectorAll('.lpill').forEach(p => {
-            p.classList.toggle('active', p.dataset.layer === key);
-        });
-    }
+    document.querySelectorAll('.lpill').forEach(p => {
+        const on = el ? p === el : p.dataset.layer === key;
+        p.classList.toggle('active', on);
+        p.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
 
     setState({ currentLayer: key });
     const cfg = LAYERS[key];
