@@ -1,0 +1,5 @@
+.grok/
+app.js.bak
+*.bak
+.DS_Store
+Thumbs.db

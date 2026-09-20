@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEA — Surveillance climatique et environnementale</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- ══ SIDEBAR ══ -->
+        <div id="sb">
+            <div class="sb-logo">⬡</div>
+            <div class="sb-nav active" onclick="showPage('map',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                <span class="sb-tooltip">Carte</span>
+            </div>
+            <div class="sb-nav" onclick="showPage('command',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><line x1="12" y1="1.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22.5" y2="12"/></svg>
+                <span class="sb-tooltip">Commande</span>
+            </div>
+            <div class="sb-nav" onclick="showPage('alerts',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="sb-tooltip">Alertes</span>
+            </div>
+            <div class="sb-nav" onclick="showPage('data',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span class="sb-tooltip">Données</span>
+            </div>
+            <div class="sb-nav" onclick="showPage('reports',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span class="sb-tooltip">Rapports</span>
+            </div>
+            <div class="sb-nav" onclick="showPage('settings',this)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span class="sb-tooltip">Paramètres</span>
+            </div>
+            <div class="sb-div"></div>
+            <div class="sb-avatar" title="Institut — poste de commande">ST</div>
+        </div>
+
+        <!-- ══ MAIN ══ -->
+        <div id="main">
+            <div id="tb">
+                <div class="tb-title">SIS<span>TEA</span></div>
+                <div class="tb-badges">
+                    <div class="badge badge-ok">
+                        <div class="badge-dot"></div>IA active</div>
+                    <div class="badge badge-warn" id="badge-crit">
+                        <div class="badge-dot"></div>2 alertes critiques</div>
+                    <div class="badge badge-info">Cycle satellite J+5</div>
+                </div>
+                <div class="tb-sep"></div>
+                <div class="tb-right">
+                    <div class="layer-pills" id="layer-pills-wrap">
+                        <div class="lpill" data-layer="rgb" onclick="switchLayer('rgb',this)">RGB</div>
+                        <div class="lpill active" data-layer="ndvi" onclick="switchLayer('ndvi',this)">NDVI</div>
+                        <div class="lpill" data-layer="swir" onclick="switchLayer('swir',this)">SWIR</div>
+                        <div class="lpill" data-layer="therm" onclick="switchLayer('therm',this)">THERM</div>
+                    </div>
+                    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Basculer le thème">☾</button>
+                    <div class="tb-clock" id="utc-clock">--:--:-- UTC</div>
+                </div>
+            </div>
+
+            <div id="ct">
+
+                <!-- ══ PAGE CARTE ══ -->
+                <div class="page active" id="pg-map">
+                    <div id="mz">
+                        <div id="map"></div>
+                        <div id="sl"></div>
+
+                        <div class="fw" id="wc">
+                            <div class="fw-title" id="wc-title">Alerte prioritaire</div>
+                            <div class="fw-val" id="wc-val">210 ha</div>
+                            <div style="font-size:10px;color:var(--ts);margin-bottom:6px" id="wc-sub">seuil critique dépassé</div>
+                            <div class="wc-bar-track">
+                                <div class="wc-bar-fill" id="wc-bar"></div>
+                            </div>
+                            <div class="wc-row"><span class="wc-key">Zone</span><span class="wc-val" id="wc-zone">—</span></div>
+                            <div class="wc-row"><span class="wc-key">Priorité</span><span class="wc-val red" id="wc-prio">Critique</span></div>
+                            <div class="wc-row"><span class="wc-key">Confiance IA</span><span class="wc-val tel" id="wc-conf">—</span></div>
+                        </div>
+
+                        <div class="fw" id="wo">
+                            <div class="fw-title">Zones détectées IA</div>
+                            <div class="wo-top">
+                                <div class="wo-num">7</div>
+                                <div class="wo-delta">+2 cette semaine</div>
+                            </div>
+                            <div style="font-size:10px;color:var(--ts);margin-bottom:8px">toutes catégories confondues</div>
+                            <div id="wo-list"></div>
+                        </div>
+
+                        <div class="fw" id="ws">
+                            <div class="ws-tag" id="ws-tag" style="background:var(--rl);color:var(--re)">Sélection</div>
+                            <div class="ws-site" id="ws-site">Cliquez un point sur la carte</div>
+                            <div class="ws-sub" id="ws-sub">Détail de la zone sélectionnée</div>
+                            <div class="ws-bar-row">
+                                <div class="ws-bar-label"><span>Superficie / seuil</span><span id="ws-p1">—</span></div>
+                                <div class="ws-bar-track">
+                                    <div class="ws-bar-fill" id="ws-bar1" style="width:0%;background:linear-gradient(90deg,#fbbf24,#f97316,#ef4444)"></div>
+                                </div>
+                            </div>
+                            <div class="ws-bar-row">
+                                <div class="ws-bar-label"><span>Confiance IA</span><span id="ws-p2">—</span></div>
+                                <div class="ws-bar-track">
+                                    <div class="ws-bar-fill" id="ws-bar2" style="width:0%;background:linear-gradient(90deg,#22c55e,#16a34a)"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fw" id="wl">
+                            <div>
+                                <div id="wl-name" class="wl-name">NDVI</div>
+                                <div class="wl-sub" id="wl-sub">Indice de végétation normalisé</div>
+                            </div>
+                            <div class="wl-scale">
+                                <span class="wl-scale-label" id="wl-min">Sol nu</span>
+                                <div class="wl-grad" id="wl-grad" style="background:linear-gradient(90deg,#8B4513,#CD853F,#F0E68C,#9ACD32,#006400)"></div>
+                                <span class="wl-scale-label" id="wl-max">Dense</span>
+                            </div>
+                            <div class="wl-legend" id="wl-legend">Marron = sol exposé · Jaune = faible couverture · Vert foncé = végétation dense</div>
+                        </div>
+
+                        <div id="ygg">
+                            <div class="ygg-dot"></div>
+                            <div class="ygg-text">SATELLITE · TEMPS RÉEL</div>
+                        </div>
+
+                        <div id="tl">
+                            <div id="tl-play" onclick="togglePlay()">▶</div>
+                            <div id="tl-date">SEPT. 2026</div>
+                            <div class="tl-track-wrap">
+                                <div class="tl-years">
+                                    <div class="tl-year">2020</div>
+                                    <div class="tl-year">2021</div>
+                                    <div class="tl-year">2022</div>
+                                    <div class="tl-year">2023</div>
+                                    <div class="tl-year">2024</div>
+                                    <div class="tl-year">2025</div>
+                                    <div class="tl-year">2026</div>
+                                </div>
+                                <div class="tl-track" id="tl-track" onclick="trackClick(event)">
+                                    <div id="tl-fill"></div>
+                                    <div id="tl-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rp-map">
+                        <div class="rp-section">Capteurs actifs</div>
+                        <div id="rp-sensors"></div>
+                        <div class="rp-section">Alertes récentes</div>
+                        <div id="rp-alerts" style="display:flex;flex-direction:column;gap:7px"></div>
+                    </div>
+                </div>
+
+                <!-- ══ PAGE COMMANDE ══ -->
+                <div class="page" id="pg-command">
+                    <div class="cmd-wrap">
+
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Chaîne de surveillance</div>
+                                <div class="d-panel-sub">Enchaînement logique de la plateforme, du satellite jusqu'au rapport</div>
+                            </div>
+                            <div class="d-panel-body">
+                                <div class="cmd-flow" id="cmd-flow"></div>
+                            </div>
+                        </div>
+
+                        <div class="cmd-grid">
+                            <div class="d-panel">
+                                <div class="d-panel-head">
+                                    <div class="d-panel-title">Drone de surveillance</div>
+                                    <div class="d-panel-sub">Voilure fixe, longue portée et longue endurance</div>
+                                </div>
+                                <div class="d-panel-body" id="cmd-specs"></div>
+                            </div>
+
+                            <div class="d-panel">
+                                <div class="d-panel-head">
+                                    <div class="d-panel-title">Planification de mission</div>
+                                    <div class="d-panel-sub">Plan de vol préparé sur la plateforme</div>
+                                </div>
+                                <div class="d-panel-body">
+                                    <div class="cmd-field">
+                                        <span class="cmd-label">Zone cible</span>
+                                        <select class="cmd-select" id="cmd-zone"></select>
+                                    </div>
+                                    <div class="cmd-field">
+                                        <span class="cmd-label">Nacelle</span>
+                                        <div class="cmd-payloads" id="cmd-payloads"></div>
+                                        <div class="cmd-pload-desc" id="cmd-pload-desc"></div>
+                                    </div>
+                                    <div class="cmd-estimate">
+                                        <div>
+                                            <div class="cmd-est-lbl">Survol estimé</div>
+                                            <div class="cmd-est-val" id="cmd-est-time">—</div>
+                                        </div>
+                                        <div>
+                                            <div class="cmd-est-lbl">Drone assigné</div>
+                                            <div class="cmd-est-val" id="cmd-est-drone">—</div>
+                                        </div>
+                                    </div>
+                                    <button class="cmd-launch" id="cmd-launch-btn" onclick="launchMission()">▶ Lancer la mission</button>
+                                    <div class="cmd-progress-wrap" id="cmd-progress-wrap">
+                                        <div class="cmd-progress-track">
+                                            <div class="cmd-progress-fill" id="cmd-progress-fill"></div>
+                                        </div>
+                                        <div class="cmd-progress-lbl" id="cmd-progress-lbl">—</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Flotte de drones SISTEA</div>
+                                <div class="d-panel-sub">Statut en temps réel des appareils en service</div>
+                            </div>
+                            <div class="d-panel-body" id="cmd-fleet"></div>
+                        </div>
+
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Journal de mission</div>
+                                <div class="d-panel-sub">Actions déclenchées depuis le centre de commande</div>
+                            </div>
+                            <div class="d-panel-body">
+                                <div class="cmd-log" id="cmd-log"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ══ PAGE ALERTES ══ -->
+                <div class="page" id="pg-alerts">
+                    <div class="alerts-wrap">
+                        <div class="alerts-head">
+                            <h1>Alertes actives</h1>
+                            <p>Générées par comparaison d'images satellitaires, vérifiées par mission drone</p>
+                        </div>
+                        <div id="alerts-list"></div>
+                    </div>
+                </div>
+
+                <!-- ══ PAGE DONNÉES ══ -->
+                <div class="page" id="pg-data">
+                    <div class="data-wrap">
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Vue d'ensemble</div>
+                                <div class="d-panel-sub">Territoire pilote — programme en cours</div>
+                            </div>
+                            <div class="d-panel-body">
+                                <div class="data-grid-3">
+                                    <div class="d-stat">
+                                        <div class="d-stat-val">1 257</div>
+                                        <div class="d-stat-lbl">hectares surveillés</div>
+                                    </div>
+                                    <div class="d-stat">
+                                        <div class="d-stat-val" id="data-alert-count">12</div>
+                                        <div class="d-stat-lbl">alertes actives</div>
+                                    </div>
+                                    <div class="d-stat">
+                                        <div class="d-stat-val">91%</div>
+                                        <div class="d-stat-lbl">précision moyenne IA</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Capteurs terrestres</div>
+                                <div class="d-panel-sub">Lecture en direct, réseau de la zone pilote</div>
+                            </div>
+                            <div class="d-panel-body" id="data-sensors"></div>
+                        </div>
+
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Flotte de drones SISTEA</div>
+                                <div class="d-panel-sub">Statut des appareils en service</div>
+                            </div>
+                            <div class="d-panel-body" id="data-drones"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══ PAGE RAPPORTS ══ -->
+                <div class="page" id="pg-reports">
+                    <div class="reports-wrap">
+                        <div class="reports-header">
+                            <div>
+                                <h1>Rapports</h1>
+                                <p>Génération et gestion des rapports périodiques destinés aux autorités</p>
+                            </div>
+                            <button class="btn-primary" onclick="showReportModal()">+ Nouveau rapport</button>
+                        </div>
+
+                        <!-- Filtres -->
+                        <div class="reports-filters">
+                            <div class="filter-group">
+                                <label>Période</label>
+                                <select id="filter-period" onchange="applyReportFilters()">
+                                    <option value="">Tous les rapports</option>
+                                    <option value="week">Dernière semaine</option>
+                                    <option value="month">Dernier mois</option>
+                                    <option value="quarter">Dernier trimestre</option>
+                                    <option value="year">Dernière année</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Zone</label>
+                                <select id="filter-zone" onchange="applyReportFilters()">
+                                    <option value="">Toutes les zones</option>
+                                    <option value="defor">Déforestation</option>
+                                    <option value="inond">Inondations</option>
+                                    <option value="secher">Sécheresse</option>
+                                    <option value="vegetat">Stress hydrique</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Priorité</label>
+                                <select id="filter-priority" onchange="applyReportFilters()">
+                                    <option value="">Toutes les priorités</option>
+                                    <option value="critique">Critique</option>
+                                    <option value="elevee">Élevée</option>
+                                    <option value="moyenne">Moyenne</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Statut</label>
+                                <select id="filter-status" onchange="applyReportFilters()">
+                                    <option value="">Tous les statuts</option>
+                                    <option value="draft">Brouillon</option>
+                                    <option value="published">Publié</option>
+                                    <option value="archived">Archivé</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Statistiques -->
+                        <div class="reports-stats">
+                            <div class="d-panel">
+                                <div class="d-panel-head">
+                                    <div class="d-panel-title">Statistiques</div>
+                                    <div class="d-panel-sub">Vue d'ensemble des rapports</div>
+                                </div>
+                                <div class="d-panel-body">
+                                    <div class="data-grid-4">
+                                        <div class="d-stat">
+                                            <div class="d-stat-val" id="stat-total">12</div>
+                                            <div class="d-stat-lbl">Rapports total</div>
+                                        </div>
+                                        <div class="d-stat">
+                                            <div class="d-stat-val" id="stat-published">8</div>
+                                            <div class="d-stat-lbl">Publiés</div>
+                                        </div>
+                                        <div class="d-stat">
+                                            <div class="d-stat-val" id="stat-draft">3</div>
+                                            <div class="d-stat-lbl">Brouillons</div>
+                                        </div>
+                                        <div class="d-stat">
+                                            <div class="d-stat-val" id="stat-automated">5</div>
+                                            <div class="d-stat-lbl">Automatisés</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Histogramme des rapports -->
+                        <div class="reports-list-section">
+                            <div class="d-panel">
+                                <div class="d-panel-head">
+                                    <div class="d-panel-title">Historique des rapports</div>
+                                    <div class="d-panel-sub">Tous les rapports générés</div>
+                                </div>
+                                <div class="d-panel-body">
+                                    <div class="reports-list" id="reports-list"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Configuration automatique -->
+                        <div class="d-panel">
+                            <div class="d-panel-head">
+                                <div class="d-panel-title">Rapports automatisés</div>
+                                <div class="d-panel-sub">Configuration des rapports périodiques</div>
+                            </div>
+                            <div class="d-panel-body">
+                                <div class="auto-reports" id="auto-reports"></div>
+                                <button class="btn-secondary" onclick="addAutoReport()">+ Ajouter un rapport automatisé</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══ PAGE PARAMÈTRES ══ -->
+                <div class="page" id="pg-settings">
+                    <div class="settings-wrap">
+                        <div class="settings-container">
+                            <div class="settings-sidebar">
+                                <div class="settings-menu">
+                                    <div class="settings-item active" onclick="showSettings('alerts',this)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                        <span>Seuils d'alerte</span>
+                                    </div>
+                                    <div class="settings-item" onclick="showSettings('users',this)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        <span>Utilisateurs</span>
+                                    </div>
+                                    <div class="settings-item" onclick="showSettings('zones',this)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                                        <span>Zones surveillées</span>
+                                    </div>
+                                    <div class="settings-item" onclick="showSettings('sensors',this)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="1"/><path d="M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0"/><path d="M12 7v10M7.5 10.5h9M7.5 13.5h9"/></svg>
+                                        <span>Capteurs</span>
+                                    </div>
+                                    <div class="settings-item" onclick="showSettings('notifications',this)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="1"/><path d="M12 1a7 7 0 0 0 7 7h5"/><path d="M12 1a7 7 0 0 1 7 7v5"/><path d="M12 23a7 7 0 0 1-7-7v-5"/><path d="M12 23a7 7 0 0 0-7-7h-5"/></svg>
+                                        <span>Notifications</span>
+                                    </div>
+                                    <div class="settings-item" onclick="showSettings('system',this)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                        <span>Système</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contenu des paramètres -->
+                            <div class="settings-content">
+                                <!-- Seuils d'alerte -->
+                                <div id="settings-alerts" class="settings-section active">
+                                    <div class="settings-title">Seuils d'alerte</div>
+                                    <p class="settings-desc">Configurez les seuils d'alerte pour chaque type de détection</p>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Déforestation</label>
+                                        <div class="threshold-control">
+                                            <input type="range" min="0" max="100" value="65" class="threshold-slider" id="defor-threshold" onchange="updateThreshold('defor')">
+                                            <span class="threshold-value" id="defor-value">65%</span>
+                                        </div>
+                                        <div class="settings-hint">Seuil critique détecté</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Inondation</label>
+                                        <div class="threshold-control">
+                                            <input type="range" min="0" max="100" value="70" class="threshold-slider" id="inond-threshold" onchange="updateThreshold('inond')">
+                                            <span class="threshold-value" id="inond-value">70%</span>
+                                        </div>
+                                        <div class="settings-hint">Élévation du niveau d'eau</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Sécheresse</label>
+                                        <div class="threshold-control">
+                                            <input type="range" min="0" max="100" value="50" class="threshold-slider" id="secher-threshold" onchange="updateThreshold('secher')">
+                                            <span class="threshold-value" id="secher-value">50%</span>
+                                        </div>
+                                        <div class="settings-hint">Déficit pluviométrique</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Stress hydrique</label>
+                                        <div class="threshold-control">
+                                            <input type="range" min="0" max="100" value="60" class="threshold-slider" id="vegetat-threshold" onchange="updateThreshold('vegetat')">
+                                            <span class="threshold-value" id="vegetat-value">60%</span>
+                                        </div>
+                                        <div class="settings-hint">Indice NDVI critique</div>
+                                    </div>
+
+                                    <button class="btn-primary" onclick="saveSettings('alerts')" style="margin-top:20px">Enregistrer les modifications</button>
+                                </div>
+
+                                <!-- Utilisateurs -->
+                                <div id="settings-users" class="settings-section">
+                                    <div class="settings-title">Gestion des utilisateurs</div>
+                                    <p class="settings-desc">Gérez les accès et permissions des utilisateurs</p>
+
+                                    <button class="btn-secondary" onclick="showUserModal()" style="margin-bottom:15px">+ Ajouter un utilisateur</button>
+
+                                    <div class="users-list" id="users-list"></div>
+                                </div>
+
+                                <!-- Zones surveillées -->
+                                <div id="settings-zones" class="settings-section">
+                                    <div class="settings-title">Zones surveillées</div>
+                                    <p class="settings-desc">Configurez les zones de surveillance et leurs paramètres</p>
+
+                                    <button class="btn-secondary" onclick="showZoneModal()" style="margin-bottom:15px">+ Ajouter une zone</button>
+
+                                    <div class="zones-list" id="zones-list"></div>
+                                </div>
+
+                                <!-- Capteurs -->
+                                <div id="settings-sensors" class="settings-section">
+                                    <div class="settings-title">Configuration des capteurs</div>
+                                    <p class="settings-desc">Gérez les capteurs terrestres et leurs paramètres</p>
+
+                                    <button class="btn-secondary" onclick="showSensorModal()" style="margin-bottom:15px">+ Ajouter un capteur</button>
+
+                                    <div class="sensors-list" id="sensors-list"></div>
+                                </div>
+
+                                <!-- Notifications -->
+                                <div id="settings-notifications" class="settings-section">
+                                    <div class="settings-title">Préférences de notifications</div>
+                                    <p class="settings-desc">Configurez comment et quand recevoir des notifications</p>
+
+                                    <div class="settings-group">
+                                        <label class="settings-checkbox">
+                                            <input type="checkbox" checked id="notify-critical">
+                                            <span>Alertes critiques (instant)</span>
+                                        </label>
+                                        <div class="settings-hint">Notification immédiate pour les alertes de priorité critique</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-checkbox">
+                                            <input type="checkbox" checked id="notify-high">
+                                            <span>Alertes élevées (horaire)</span>
+                                        </label>
+                                        <div class="settings-hint">Regroupement horaire des alertes de priorité élevée</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-checkbox">
+                                            <input type="checkbox" id="notify-medium">
+                                            <span>Alertes moyennes (quotidien)</span>
+                                        </label>
+                                        <div class="settings-hint">Regroupement quotidien des alertes de priorité moyenne</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-checkbox">
+                                            <input type="checkbox" checked id="notify-email">
+                                            <span>Notifications par email</span>
+                                        </label>
+                                        <div class="settings-hint">Recevoir les alertes par email en plus des notifications système</div>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-checkbox">
+                                            <input type="checkbox" checked id="notify-sms">
+                                            <span>Notifications par SMS</span>
+                                        </label>
+                                        <div class="settings-hint">Recevoir les alertes critiques par SMS</div>
+                                    </div>
+
+                                    <button class="btn-primary" onclick="saveSettings('notifications')" style="margin-top:20px">Enregistrer les modifications</button>
+                                </div>
+
+                                <!-- Système -->
+                                <div id="settings-system" class="settings-section">
+                                    <div class="settings-title">Paramètres système</div>
+                                    <p class="settings-desc">Configuration générale de la plateforme</p>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Fuseau horaire</label>
+                                        <select class="settings-input">
+                                            <option>UTC</option>
+                                            <option>GMT+0</option>
+                                            <option>WAT (UTC+1)</option>
+                                            <option>CAT (UTC+2)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Langage</label>
+                                        <select class="settings-input">
+                                            <option>Français</option>
+                                            <option>English</option>
+                                            <option>Español</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">API externe</label>
+                                        <input type="text" class="settings-input" placeholder="URL de l'API">
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-label">Clé API</label>
+                                        <input type="password" class="settings-input" placeholder="Votre clé API sécurisée">
+                                    </div>
+
+                                    <div class="settings-group">
+                                        <label class="settings-checkbox">
+                                            <input type="checkbox" checked>
+                                            <span>Activer la sauvegarde automatique</span>
+                                        </label>
+                                    </div>
+
+                                    <button class="btn-primary" onclick="saveSettings('system')" style="margin-top:20px">Enregistrer les modifications</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
