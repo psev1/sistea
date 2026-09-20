@@ -18,27 +18,30 @@ body {
 }
 
 :root {
-    --bg: #f0f2f5;
-    --ss: #ffffff;
-    --border: rgba(0, 0, 0, .08);
-    --bl: rgba(0, 0, 0, .04);
-    --tp: #0f172a;
-    --ts: #64748b;
-    --tm: #94a3b8;
-    --ac: #4f6ef7;
-    --gr: #22c55e;
-    --gl: rgba(34, 197, 94, .12);
-    --or: #f97316;
-    --ol: rgba(249, 115, 22, .12);
-    --re: #ef4444;
-    --rl: rgba(239, 68, 68, .12);
-    --te: #06b6d4;
-    --tl: rgba(6, 182, 212, .12);
+    /* Fond et surfaces légèrement plus soutenus */
+    --bg: #e4e7ec;
+    --ss: #f3f4f6;
+    --border: rgba(15, 23, 42, .14);
+    --bl: rgba(15, 23, 42, .07);
+    /* Textes plus contrastés */
+    --tp: #0a0f1a;
+    --ts: #475569;
+    --tm: #64748b;
+    /* Accents un peu plus profonds */
+    --ac: #3b5bdb;
+    --gr: #16a34a;
+    --gl: rgba(22, 163, 74, .14);
+    --or: #ea580c;
+    --ol: rgba(234, 88, 12, .14);
+    --re: #dc2626;
+    --rl: rgba(220, 38, 38, .14);
+    --te: #0891b2;
+    --tl: rgba(8, 145, 178, .14);
     --sw: 56px;
     --th: 52px;
     --rw: 264px;
-    --sf: 0 8px 32px rgba(0, 0, 0, .11), 0 2px 8px rgba(0, 0, 0, .07);
-    --sc: 0 1px 3px rgba(0, 0, 0, .06), 0 4px 16px rgba(0, 0, 0, .04);
+    --sf: 0 8px 28px rgba(15, 23, 42, .12), 0 2px 8px rgba(15, 23, 42, .08);
+    --sc: 0 1px 3px rgba(15, 23, 42, .08), 0 4px 14px rgba(15, 23, 42, .06);
     --r: 12px;
     --rs: 8px;
 }
@@ -486,10 +489,10 @@ button {
 .fw {
     position: absolute;
     z-index: 600;
-    background: rgba(255, 255, 255, .93);
+    background: rgba(243, 244, 246, .94);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, .9);
+    border: 1px solid rgba(15, 23, 42, .12);
     border-radius: var(--r);
     box-shadow: var(--sf);
     padding: 13px 14px
@@ -725,9 +728,9 @@ button {
     bottom: 58px;
     right: 14px;
     z-index: 600;
-    background: rgba(255, 255, 255, .93);
+    background: rgba(243, 244, 246, .94);
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, .9);
+    border: 1px solid rgba(15, 23, 42, .12);
     border-radius: 8px;
     box-shadow: var(--sc);
     padding: 5px 10px;
@@ -759,7 +762,7 @@ button {
     right: 0;
     height: 52px;
     z-index: 600;
-    background: rgba(255, 255, 255, .93);
+    background: rgba(243, 244, 246, .94);
     backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
     display: flex;
