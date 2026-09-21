@@ -46,6 +46,9 @@ function showPage(id, el) {
     $('layer-pills-wrap').style.display = id === 'map' ? 'flex' : 'none';
     setState({ currentPage: id });
     if (id === 'map') setTimeout(() => invalidateMapSize(), 60);
+    if (id === 'live' && typeof window.invalidateLiveMap === 'function') {
+        setTimeout(() => window.invalidateLiveMap(), 60);
+    }
 }
 
 /* ══ INITIALISATION ══ */

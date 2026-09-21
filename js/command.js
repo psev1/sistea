@@ -105,12 +105,14 @@ export function launchMission() {
     const payloadLabel = PAYLOADS.find(p => p.key === getState('cmdPayload')).label;
     logMsg(`Mission planifiée sur ${site.name} (nacelle ${payloadLabel})`);
 
-    // Ouvrir l’onglet Drone Live (page intégrée)
+    // Ouvrir l'onglet Drone Live (vue satellite de la zone)
     if (typeof window.startLiveSession === 'function') {
         window.startLiveSession({
             drone: drone.name,
             zone: site.name,
-            payload: payloadLabel
+            payload: payloadLabel,
+            lat: site.ll[0],
+            lng: site.ll[1]
         });
     }
     const liveNav = document.getElementById('nav-live');

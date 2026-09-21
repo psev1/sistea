@@ -3104,3 +3104,152 @@ button {
         min-height: 240px;
     }
 }
+
+/* ── Dark mode: textes et fonds qui restaient clairs/noirs ── */
+.dark #map {
+    background: #12161f;
+}
+
+.dark .pdf-btn {
+    background: rgba(124, 58, 237, .2);
+    border-color: rgba(167, 139, 250, .4);
+    color: #c4b5fd;
+}
+
+.dark .pdf-btn:hover {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: #fff;
+}
+
+.dark .fw,
+.dark #ygg,
+.dark #tl {
+    background: rgba(28, 31, 43, .94);
+    border-color: rgba(255, 255, 255, .1);
+    color: var(--tp);
+}
+
+.dark .fw-title,
+.dark .fw-val,
+.dark .wc-val,
+.dark .ws-site,
+.dark .wo-num,
+.dark .d-panel-title,
+.dark .d-panel-sub,
+.dark .cmd-label,
+.dark .cmd-est-val,
+.dark .cmd-log-text,
+.dark .settings-title,
+.dark .settings-desc,
+.dark .settings-label,
+.dark .list-item-title,
+.dark .list-item-meta,
+.dark .report-title,
+.dark .report-meta,
+.dark .alerts-head h1,
+.dark .alerts-head p,
+.dark .live-title,
+.dark .live-sub,
+.dark .live-chip,
+.dark .live-chip strong,
+.dark .live-tel .lbl,
+.dark .live-tel .val,
+.dark .live-feed-info,
+.dark .live-mono,
+.dark .sensor-name,
+.dark .drone-name,
+.dark .drone-info,
+.dark .spec-key,
+.dark .spec-val,
+.dark .badge,
+.dark .tb-title,
+.dark .tb-clock,
+.dark input,
+.dark select,
+.dark textarea,
+.dark .cmd-select,
+.dark .settings-input {
+    color: var(--tp);
+}
+
+.dark .d-panel-sub,
+.dark .cmd-label,
+.dark .list-item-meta,
+.dark .report-meta,
+.dark .alerts-head p,
+.dark .live-sub,
+.dark .live-tel .lbl,
+.dark .drone-info,
+.dark .spec-key,
+.dark .settings-desc {
+    color: var(--ts);
+}
+
+.dark .cmd-select,
+.dark .settings-input,
+.dark input,
+.dark select,
+.dark textarea {
+    background: var(--bg);
+    border-color: var(--border);
+    color: var(--tp);
+}
+
+.dark .live-idle {
+    background: rgba(15, 17, 23, .94);
+    color: var(--ts);
+}
+
+.dark .live-idle strong {
+    color: var(--tp);
+}
+
+.dark .live-conn-btn {
+    background: var(--bg);
+    color: var(--tp);
+    border-color: var(--border);
+}
+
+.dark .live-tab {
+    background: var(--bg);
+    color: var(--ts);
+    border-color: var(--border);
+}
+
+.dark .live-tab.active {
+    background: var(--ac);
+    color: #fff;
+    border-color: var(--ac);
+}
+
+.dark .live-log {
+    color: var(--ts);
+}
+
+.dark .report-preview-content,
+.dark .modal-content {
+    background: var(--ss);
+    color: var(--tp);
+}
+
+/* Live map container */
+#live-map {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    background: #0a0c12;
+    z-index: 1;
+}
+
+.live-feed .leaflet-control-attribution {
+    font-size: 9px;
+    background: rgba(0, 0, 0, .45) !important;
+    color: rgba(255, 255, 255, .7) !important;
+}
+
+.live-feed .leaflet-control-zoom a {
+    background: rgba(28, 31, 43, .9) !important;
+    color: #e8eaf0 !important;
+    border-color: rgba(255, 255, 255, .12) !important;
+}
