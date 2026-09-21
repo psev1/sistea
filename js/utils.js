@@ -1,5 +1,5 @@
 /**
- * SISTEA — Utilitaires
+ * SISTEA - Utilitaires
  */
 
 import { PRIO } from './data.js';

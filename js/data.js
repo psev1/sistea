@@ -1,5 +1,5 @@
 /**
- * SISTEA — Données et constantes
+ * SISTEA - Données et constantes
  * Toutes les données simulées + configurations statiques
  */
 
@@ -17,7 +17,7 @@ export const CAT = {
 };
 
 /**
- * Zones d’alerte — délimitations géographiques réalistes (Côte d’Ivoire).
+ * Zones d’alerte - délimitations géographiques réalistes (Côte d’Ivoire).
  * Chaque zone couvre un bassin / massif / plaine et les localités associées
  * (pas uniquement un point isolé). Les polygones sont définis explicitement
  * pour coller au terrain ; `ll` reste le centroïde pour les marqueurs.
@@ -38,7 +38,7 @@ export const SITES = [
         ]
     },
     {
-        name: 'Bassin de la Sassandra — Soubré',
+        name: 'Bassin de la Sassandra - Soubré',
         cities: 'Soubré, Méagui, Buyo, Sassandra amont',
         ll: [5.82, -6.62],
         cat: 'inond', prio: 'critique', superficie: 210, seuil: 96, conf: 87,
@@ -71,7 +71,7 @@ export const SITES = [
         ]
     },
     {
-        name: "Réserve de N'Zo — Taï",
+        name: "Réserve de N'Zo - Taï",
         cities: "Taï, Buyo, zone N'Zo",
         ll: [5.95, -7.35],
         cat: 'defor', prio: 'moyenne', superficie: 19, seuil: 38, conf: 73,
@@ -82,7 +82,7 @@ export const SITES = [
         ]
     },
     {
-        name: 'Plaine de Tiébissou — Bandama',
+        name: 'Plaine de Tiébissou - Bandama',
         cities: 'Tiébissou, Toumodi, Yamoussoukro nord',
         ll: [7.15, -5.28],
         cat: 'inond', prio: 'elevee', superficie: 76, seuil: 64, conf: 88,
@@ -105,7 +105,7 @@ export const SITES = [
     },
     // ── Zones supplémentaires : couverture élargie du territoire ──
     {
-        name: 'Massif forestier de Man — Tonkpi',
+        name: 'Massif forestier de Man - Tonkpi',
         cities: 'Man, Danané, Biankouma, Sipilou',
         ll: [7.40, -7.55],
         cat: 'defor', prio: 'elevee', superficie: 95, seuil: 68, conf: 86,
@@ -149,7 +149,7 @@ export const SITES = [
         ]
     },
     {
-        name: 'Corridor Est — Abengourou / Bondoukou',
+        name: 'Corridor Est - Abengourou / Bondoukou',
         cities: 'Abengourou, Agnibilékrou, Bondoukou, Tanda',
         ll: [7.20, -3.50],
         cat: 'vegetat', prio: 'elevee', superficie: 88, seuil: 63, conf: 81,
@@ -162,16 +162,16 @@ export const SITES = [
 ];
 
 export const SENSORS = [
-    { label: 'Humidité du sol — Duékoué',   val: 38, unit: '%',  pct: 38 },
-    { label: 'Température — Soubré',        val: 29, unit: '°C', pct: 58 },
-    { label: 'Pluviométrie 24h — Katiola',  val: 2,  unit: 'mm', pct: 8  },
-    { label: "Niveau d'eau — Sassandra",    val: 1.8, unit: 'm', pct: 72 },
+    { label: 'Humidité du sol - Duékoué',   val: 38, unit: '%',  pct: 38 },
+    { label: 'Température - Soubré',        val: 29, unit: '°C', pct: 58 },
+    { label: 'Pluviométrie 24h - Katiola',  val: 2,  unit: 'mm', pct: 8  },
+    { label: "Niveau d'eau - Sassandra",    val: 1.8, unit: 'm', pct: 72 },
 ];
 
 export const DRONES = [
     { name: 'DE12-1', status: 'mission', label: 'En mission',  zone: 'Bassin de la Sassandra · autonomie 71%', col: 'var(--te)' },
-    { name: 'DE12-2', status: 'charge',  label: 'En charge',   zone: 'Base — zone pilote · 34%',               col: 'var(--or)' },
-    { name: 'DE12-3', status: 'dispo',   label: 'Disponible',  zone: 'Base — zone pilote · 100%',              col: 'var(--gr)' },
+    { name: 'DE12-2', status: 'charge',  label: 'En charge',   zone: 'Base - zone pilote · 34%',               col: 'var(--or)' },
+    { name: 'DE12-3', status: 'dispo',   label: 'Disponible',  zone: 'Base - zone pilote · 100%',              col: 'var(--gr)' },
 ];
 
 /**
@@ -191,7 +191,7 @@ export const LAYERS = {
         grad: ['#1a1a1a', '#4a5568', '#a0aec0', '#e2e8f0', '#ffffff'],
         minLabel: 'Ombre',
         maxLabel: 'Clair',
-        legend: 'Composition naturelle (Red-Green-Blue) — observation visuelle du terrain'
+        legend: 'Composition naturelle (Red-Green-Blue) - observation visuelle du terrain'
     },
     ndvi: {
         url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -258,7 +258,7 @@ export const PAYLOADS = [
 export const REPORTS = [
     {
         id: 1,
-        name: 'Rapport mensuel — Septembre 2026',
+        name: 'Rapport mensuel - Septembre 2026',
         status: 'published',
         date: '30/09/2026',
         zone: 'defor',
@@ -304,7 +304,7 @@ export const REPORTS = [
     },
     {
         id: 3,
-        name: 'État des cultures — Katiola',
+        name: 'État des cultures - Katiola',
         status: 'draft',
         date: '28/09/2026',
         zone: 'vegetat',

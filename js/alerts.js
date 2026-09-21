@@ -1,5 +1,5 @@
 /**
- * SISTEA — Module Alertes
+ * SISTEA - Module Alertes
  */
 
 import { SITES, CAT, PRIO } from './data.js';
@@ -15,7 +15,7 @@ export function initAlerts() {
                   <div class="af-head">
                     <div class="af-icon" style="background:${bg};color:${col}">${CAT[s.cat].ic}</div>
                     <div class="af-info">
-                      <div class="af-title">${CAT[s.cat].label} — ${s.name}</div>
+                      <div class="af-title">${CAT[s.cat].label} - ${s.name}</div>
                       <div class="af-meta">${s.superficie} ha · ${s.date} · Confiance ${s.conf}%</div>
                     </div>
                     <div class="af-badge" style="background:${bg};color:${col}">${PRIO[s.prio].label.toUpperCase()}</div>

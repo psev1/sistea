@@ -1,5 +1,5 @@
 /**
- * SISTEA — Module Paramètres
+ * SISTEA - Module Paramètres
  */
 
 import { USERS, ZONES_SURV, SENSORS_CONF } from './data.js';
@@ -104,9 +104,9 @@ export function saveSettings(section) {
     alert(`Paramètres ${section} sauvegardés avec succès!`);
 }
 
-function showUserModal()   { alert('Formulaire d\'ajout utilisateur — à implémenter'); }
-function showZoneModal()   { alert('Formulaire d\'ajout zone — à implémenter'); }
-function showSensorModal() { alert('Formulaire d\'ajout capteur — à implémenter'); }
+function showUserModal()   { alert('Formulaire d\'ajout utilisateur - à implémenter'); }
+function showZoneModal()   { alert('Formulaire d\'ajout zone - à implémenter'); }
+function showSensorModal() { alert('Formulaire d\'ajout capteur - à implémenter'); }
 
 function editUser(id) {
     const user = users.find(u => u.id === id);

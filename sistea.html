@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SISTEA — Surveillance climatique et environnementale</title>
+    <title>SISTEA - Surveillance climatique et environnementale</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -25,6 +25,10 @@
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><line x1="12" y1="1.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22.5" y2="12"/></svg>
                 <span class="sb-tooltip">Commande</span>
             </button>
+            <button type="button" class="sb-nav" id="nav-live" onclick="showPage('live',this)" aria-label="Drone Live">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span class="sb-tooltip">Live</span>
+            </button>
             <button type="button" class="sb-nav" onclick="showPage('alerts',this)" aria-label="Alertes">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                 <span class="sb-tooltip">Alertes</span>
@@ -42,7 +46,7 @@
                 <span class="sb-tooltip">Paramètres</span>
             </button>
             <div class="sb-div" aria-hidden="true"></div>
-            <div class="sb-avatar" title="Institut — poste de commande" aria-hidden="true">ST</div>
+            <div class="sb-avatar" title="Institut - poste de commande" aria-hidden="true">ST</div>
         </nav>
 
         <!-- ══ MAIN ══ -->
@@ -84,9 +88,9 @@
                             <div class="wc-bar-track">
                                 <div class="wc-bar-fill" id="wc-bar"></div>
                             </div>
-                            <div class="wc-row"><span class="wc-key">Zone</span><span class="wc-val" id="wc-zone">—</span></div>
+                            <div class="wc-row"><span class="wc-key">Zone</span><span class="wc-val" id="wc-zone">-</span></div>
                             <div class="wc-row"><span class="wc-key">Priorité</span><span class="wc-val red" id="wc-prio">Critique</span></div>
-                            <div class="wc-row"><span class="wc-key">Confiance IA</span><span class="wc-val tel" id="wc-conf">—</span></div>
+                            <div class="wc-row"><span class="wc-key">Confiance IA</span><span class="wc-val tel" id="wc-conf">-</span></div>
                         </div>
 
                         <div class="fw" id="wo">
@@ -104,13 +108,13 @@
                             <div class="ws-site" id="ws-site">Cliquez un point sur la carte</div>
                             <div class="ws-sub" id="ws-sub">Détail de la zone sélectionnée</div>
                             <div class="ws-bar-row">
-                                <div class="ws-bar-label"><span>Superficie / seuil</span><span id="ws-p1">—</span></div>
+                                <div class="ws-bar-label"><span>Superficie / seuil</span><span id="ws-p1">-</span></div>
                                 <div class="ws-bar-track">
                                     <div class="ws-bar-fill" id="ws-bar1" style="width:0%;background:linear-gradient(90deg,#fbbf24,#f97316,#ef4444)"></div>
                                 </div>
                             </div>
                             <div class="ws-bar-row">
-                                <div class="ws-bar-label"><span>Confiance IA</span><span id="ws-p2">—</span></div>
+                                <div class="ws-bar-label"><span>Confiance IA</span><span id="ws-p2">-</span></div>
                                 <div class="ws-bar-track">
                                     <div class="ws-bar-fill" id="ws-bar2" style="width:0%;background:linear-gradient(90deg,#22c55e,#16a34a)"></div>
                                 </div>
@@ -205,11 +209,11 @@
                                     <div class="cmd-estimate">
                                         <div>
                                             <div class="cmd-est-lbl">Survol estimé</div>
-                                            <div class="cmd-est-val" id="cmd-est-time">—</div>
+                                            <div class="cmd-est-val" id="cmd-est-time">-</div>
                                         </div>
                                         <div>
                                             <div class="cmd-est-lbl">Drone assigné</div>
-                                            <div class="cmd-est-val" id="cmd-est-drone">—</div>
+                                            <div class="cmd-est-val" id="cmd-est-drone">-</div>
                                         </div>
                                     </div>
                                     <button class="cmd-launch" id="cmd-launch-btn" onclick="launchMission()">▶ Lancer la mission</button>
@@ -217,7 +221,7 @@
                                         <div class="cmd-progress-track">
                                             <div class="cmd-progress-fill" id="cmd-progress-fill"></div>
                                         </div>
-                                        <div class="cmd-progress-lbl" id="cmd-progress-lbl">—</div>
+                                        <div class="cmd-progress-lbl" id="cmd-progress-lbl">-</div>
                                     </div>
                                 </div>
                             </div>
@@ -244,6 +248,103 @@
                     </div>
                 </div>
 
+                <!-- ══ PAGE DRONE LIVE ══ -->
+                <div class="page" id="pg-live">
+                    <div class="live-wrap">
+                        <div class="live-header">
+                            <div>
+                                <div class="live-title">Drone Live</div>
+                                <div class="live-sub">Flux caméra simulé · télémétrie temps réel</div>
+                            </div>
+                            <div class="live-meta">
+                                <span class="badge badge-ok" id="live-status"><span class="badge-dot"></span>En attente</span>
+                                <span class="live-chip">Drone <strong id="live-drone">-</strong></span>
+                                <span class="live-chip">Zone <strong id="live-zone">-</strong></span>
+                                <span class="live-chip">Nacelle <strong id="live-payload">-</strong></span>
+                                <button type="button" class="btn-secondary" id="live-stop-btn" hidden>Arrêter le flux</button>
+                            </div>
+                        </div>
+
+                        <div class="live-grid">
+                            <div class="d-panel live-feed-panel">
+                                <div class="d-panel-head live-tabs-head">
+                                    <div class="live-tabs" role="tablist" aria-label="Modes capteur">
+                                        <button type="button" class="live-tab active" data-mode="hd">HD</button>
+                                        <button type="button" class="live-tab" data-mode="ir">IR</button>
+                                        <button type="button" class="live-tab" data-mode="ndvi">NDVI</button>
+                                        <button type="button" class="live-tab" data-mode="lidar">LiDAR</button>
+                                    </div>
+                                    <div class="live-feed-info">
+                                        <span id="live-mode-lbl">HD · 1080p · 30 fps</span>
+                                        <span class="live-rec" id="live-rec" hidden><i></i> REC</span>
+                                        <span id="live-timer" class="live-mono">00:00:00</span>
+                                    </div>
+                                </div>
+                                <div class="live-feed">
+                                    <canvas id="live-canvas" width="1280" height="720" aria-label="Flux caméra simulé"></canvas>
+                                    <div class="live-overlay">
+                                        <div class="live-crosshair" aria-hidden="true"></div>
+                                        <div class="live-ov-bottom">
+                                            <span id="live-gps">-</span>
+                                            <span id="live-ov-alt">ALT -</span>
+                                        </div>
+                                    </div>
+                                    <div class="live-idle" id="live-idle">
+                                        <div class="live-idle-icon">▶</div>
+                                        <strong>Aucune mission en cours</strong>
+                                        <p>Lancez une mission depuis le Centre de commande pour démarrer le flux live.</p>
+                                        <button type="button" class="btn-primary" id="live-goto-cmd">Aller à Commande</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="live-side">
+                                <div class="d-panel">
+                                    <div class="d-panel-head">
+                                        <div class="d-panel-title">Télémétrie</div>
+                                        <div class="d-panel-sub">Données bord simulées</div>
+                                    </div>
+                                    <div class="d-panel-body">
+                                        <div class="live-tel-grid">
+                                            <div class="live-tel"><span class="lbl">Batterie</span><span class="val" id="lt-bat">-</span></div>
+                                            <div class="live-tel"><span class="lbl">Altitude</span><span class="val" id="lt-alt">-</span></div>
+                                            <div class="live-tel"><span class="lbl">Vitesse</span><span class="val" id="lt-spd">-</span></div>
+                                            <div class="live-tel"><span class="lbl">Signal</span><span class="val" id="lt-sig">-</span></div>
+                                            <div class="live-tel"><span class="lbl">Temp. nacelle</span><span class="val" id="lt-tmp">-</span></div>
+                                            <div class="live-tel"><span class="lbl">Satellites</span><span class="val" id="lt-sat">-</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-panel">
+                                    <div class="d-panel-head">
+                                        <div class="d-panel-title">Connexion</div>
+                                        <div class="d-panel-sub">Canal de liaison actif</div>
+                                    </div>
+                                    <div class="d-panel-body">
+                                        <div class="live-conn" id="live-conn">
+                                            <button type="button" class="live-conn-btn active" data-conn="wifi">Wi‑Fi <span>Actif</span></button>
+                                            <button type="button" class="live-conn-btn" data-conn="nrf">NRF <span>Dispo</span></button>
+                                            <button type="button" class="live-conn-btn" data-conn="usb">USB <span>Dispo</span></button>
+                                            <button type="button" class="live-conn-btn" data-conn="rtsp">RTSP <span>Dispo</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-panel live-log-panel">
+                                    <div class="d-panel-head">
+                                        <div class="d-panel-title">Journal liaison</div>
+                                        <div class="d-panel-sub">Événements de la mission</div>
+                                    </div>
+                                    <div class="d-panel-body">
+                                        <div class="live-log" id="live-log"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ══ PAGE ALERTES ══ -->
                 <div class="page" id="pg-alerts">
                     <div class="alerts-wrap">
@@ -261,7 +362,7 @@
                         <div class="d-panel">
                             <div class="d-panel-head">
                                 <div class="d-panel-title">Vue d'ensemble</div>
-                                <div class="d-panel-sub">Territoire pilote — programme en cours</div>
+                                <div class="d-panel-sub">Territoire pilote - programme en cours</div>
                             </div>
                             <div class="d-panel-body">
                                 <div class="data-grid-3">

@@ -1,5 +1,5 @@
 /**
- * SISTEA — Module Page Données
+ * SISTEA - Module Page Données
  */
 
 import { SITES, SENSORS, DRONES } from './data.js';

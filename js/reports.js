@@ -1,5 +1,5 @@
 /**
- * SISTEA — Module Rapports
+ * SISTEA - Module Rapports
  */
 
 import { REPORTS, AUTO_REPORTS } from './data.js';
@@ -322,11 +322,11 @@ function deleteAutoReport(id) {
 }
 
 export function showReportModal() {
-    alert('Génération d\'un nouveau rapport — fonction complète à développer');
+    alert('Génération d\'un nouveau rapport - fonction complète à développer');
 }
 
 export function addAutoReport() {
-    alert('Ajouter un rapport automatisé — formulaire à implémenter');
+    alert('Ajouter un rapport automatisé - formulaire à implémenter');
 }
 
 // Exposer globalement pour les onclick du HTML

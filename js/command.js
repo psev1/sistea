@@ -1,5 +1,5 @@
 /**
- * SISTEA — Module Centre de Commande
+ * SISTEA - Module Centre de Commande
  */
 
 import { SITES, DRONES, CMD_FLOW, DRONE_SPECS, PAYLOADS } from './data.js';
@@ -30,7 +30,7 @@ export function initCommand() {
     renderPayloads();
     updateEstimate();
     renderFleet();
-    logMsg('Centre de commande initialisé — flotte prête.');
+    logMsg('Centre de commande initialisé - flotte prête.');
 }
 
 function renderPayloads() {
@@ -88,7 +88,7 @@ export function launchMission() {
     const drone = DRONES.find(d => d.status === 'dispo');
 
     if (!drone) {
-        logMsg('Aucun drone disponible — mission différée.');
+        logMsg('Aucun drone disponible - mission différée.');
         return;
     }
 
@@ -105,12 +105,26 @@ export function launchMission() {
     const payloadLabel = PAYLOADS.find(p => p.key === getState('cmdPayload')).label;
     logMsg(`Mission planifiée sur ${site.name} (nacelle ${payloadLabel})`);
 
+    // Ouvrir l’onglet Drone Live (page intégrée)
+    if (typeof window.startLiveSession === 'function') {
+        window.startLiveSession({
+            drone: drone.name,
+            zone: site.name,
+            payload: payloadLabel
+        });
+    }
+    const liveNav = document.getElementById('nav-live');
+    if (typeof window.showPage === 'function' && liveNav) {
+        window.showPage('live', liveNav);
+    }
+    logMsg('Onglet Drone Live ouvert - flux temps réel.');
+
     const steps = [
         { pct: 15,  msg: `Décollage de ${drone.name}` },
         { pct: 40,  msg: `Transit vers ${site.name}` },
         { pct: 65,  msg: "Survol et capture d'images géoréférencées" },
         { pct: 85,  msg: 'Transmission des données vers la plateforme' },
-        { pct: 100, msg: 'Retour à la base — mission terminée' }
+        { pct: 100, msg: 'Retour à la base - mission terminée' }
     ];
 
     let i = 0;
@@ -129,9 +143,12 @@ export function launchMission() {
             drone.status = 'dispo';
             drone.label = 'Disponible';
             drone.col = 'var(--gr)';
-            drone.zone = 'Base — zone pilote · 100%';
+            drone.zone = 'Base - zone pilote · 100%';
             renderFleet();
             updateEstimate();
+
+            // Le flux Live continue jusqu’à arrêt manuel sur l’onglet Live
+            logMsg('Mission terminée - flux Live toujours actif (arrêt manuel possible).');
 
             setTimeout(() => {
                 $('cmd-progress-wrap').classList.remove('show');

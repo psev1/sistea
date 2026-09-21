@@ -1,5 +1,5 @@
 /**
- * SISTEA — Module Carte
+ * SISTEA - Module Carte
  * Leaflet, couches, markers, widgets, timeline
  */
 
@@ -155,8 +155,8 @@ function renderPriorityWidget() {
 
     $('wc-title').textContent = 'Alerte prioritaire';
     $('wc-val').textContent = top.superficie + ' ha';
-    $('wc-sub').textContent = CAT[top.cat].label.toLowerCase() + ' — ' + PRIO[top.prio].label.toLowerCase();
-    $('wc-zone').textContent = top.name.split(' — ')[0].split(' de ').pop();
+    $('wc-sub').textContent = CAT[top.cat].label.toLowerCase() + ' - ' + PRIO[top.prio].label.toLowerCase();
+    $('wc-zone').textContent = top.name.split(' - ')[0].split(' de ').pop();
     $('wc-prio').textContent = PRIO[top.prio].label;
     $('wc-prio').className = 'wc-val ' + priorityCls(top.prio);
     $('wc-conf').textContent = top.conf + '%';
@@ -174,7 +174,7 @@ function renderZonesWidget() {
                         (b.prio === 'critique' ? 0 : b.prio === 'elevee' ? 1 : 2))
         .slice(0, 6)
         .map(s => {
-            const short = s.name.split(' — ')[0].replace(/^Forêt classée de |^Plaine agricole de |^Zone pastorale de |^Massif forestier de |^Périphérie agricole de |^Bassin côtier de |^Zone cacaoyère de |^Corridor Est — /, '');
+            const short = s.name.split(' - ')[0].replace(/^Forêt classée de |^Plaine agricole de |^Zone pastorale de |^Massif forestier de |^Périphérie agricole de |^Bassin côtier de |^Zone cacaoyère de |^Corridor Est - /, '');
             return `
             <div class="wc-row">
               <span class="wc-key">${short}</span>
@@ -205,7 +205,7 @@ function renderAlertsPanel() {
         .map(s => `
             <div class="alert-card ${priorityCls(s.prio)}">
               <div class="ac-top">
-                <div class="ac-title">${CAT[s.cat].label} — ${s.name.split(' — ')[0].split(' de ').pop()}</div>
+                <div class="ac-title">${CAT[s.cat].label} - ${s.name.split(' - ')[0].split(' de ').pop()}</div>
                 <div class="ac-time">${s.date.slice(0, 5)}</div>
               </div>
               <div class="ac-val ${priorityCls(s.prio)}">${s.superficie} ha</div>

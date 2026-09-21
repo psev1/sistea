@@ -1,10 +1,11 @@
 /**
- * SISTEA — Point d'entrée principal
+ * SISTEA - Point d'entrée principal
  * Navigation, thème, horloge, initialisation des modules
  */
 
 import { initMap, invalidateMapSize } from './map.js';
 import { initCommand } from './command.js';
+import { initLive } from './live.js';
 import { initAlerts } from './alerts.js';
 import { initDataPage } from './data-page.js';
 import { initReports } from './reports.js';
@@ -56,6 +57,7 @@ function init() {
     // Modules
     initMap();
     initCommand();
+    initLive();
     initAlerts();
     initDataPage();
     initReports();

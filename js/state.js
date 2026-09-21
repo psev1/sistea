@@ -1,5 +1,5 @@
 /**
- * SISTEA — Mini State Management
+ * SISTEA - Mini State Management
  * État global simple + abonnements
  */
 
