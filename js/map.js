@@ -147,6 +147,28 @@ export function selectSite(s) {
     $('ws-bar2').style.width = s.conf + '%';
 }
 
+
+/**
+ * Simple highlight on alert map (no editing - editing is on Command mission map).
+ */
+export function focusMissionZone(site) {
+    if (!map || !site) return;
+    selectSite(site);
+    const layer = zoneLayers[site.name];
+    if (layer) {
+        try {
+            map.fitBounds(layer.getBounds(), { padding: [36, 36], maxZoom: 12 });
+        } catch (e) {
+            map.setView(site.ll, 11);
+        }
+    } else {
+        map.setView(site.ll, 11);
+    }
+    setTimeout(() => { if (map) map.invalidateSize(); }, 80);
+}
+
+window.focusMissionZone = focusMissionZone;
+
 /* ── Widget alerte prioritaire ── */
 function renderPriorityWidget() {
     const top = [...SITES]

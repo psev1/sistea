@@ -200,6 +200,24 @@
                                     <div class="cmd-field">
                                         <span class="cmd-label">Zone cible</span>
                                         <select class="cmd-select" id="cmd-zone"></select>
+                                        <div class="cmd-zone-actions">
+                                            <button type="button" class="btn-secondary cmd-zone-btn" id="cmd-zone-shrink" title="Retrecir">− Zone</button>
+                                            <button type="button" class="btn-secondary cmd-zone-btn" id="cmd-zone-grow" title="Agrandir">+ Zone</button>
+                                            <button type="button" class="btn-secondary cmd-zone-btn" id="cmd-zone-reset" title="Reinitialiser">Reset</button>
+                                        </div>
+                                        <div class="cmd-mission-map-wrap">
+                                            <div id="cmd-mission-map" aria-label="Carte d'ajustement de la zone de mission"></div>
+                                        </div>
+                                        <div class="cmd-pload-desc" id="cmd-zone-hint">Carte dediee a la mission (independante des alertes). Glissez les points bleus pour ajuster.</div>
+                                    </div>
+                                    <div class="cmd-field">
+                                        <span class="cmd-label">Drone de mission</span>
+                                        <select class="cmd-select" id="cmd-drone"></select>
+                                    </div>
+                                    <div class="cmd-field">
+                                        <span class="cmd-label">Duree de mission (min)</span>
+                                        <input type="number" class="cmd-select" id="cmd-duration" min="5" max="240" step="5" value="30">
+                                        <div class="cmd-pload-desc" id="cmd-duration-hint">Duree ajustable selon la superficie de la zone</div>
                                     </div>
                                     <div class="cmd-field">
                                         <span class="cmd-label">Nacelle</span>
@@ -208,12 +226,16 @@
                                     </div>
                                     <div class="cmd-estimate">
                                         <div>
-                                            <div class="cmd-est-lbl">Survol estimé</div>
+                                            <div class="cmd-est-lbl">Duree planifiee</div>
                                             <div class="cmd-est-val" id="cmd-est-time">-</div>
                                         </div>
                                         <div>
-                                            <div class="cmd-est-lbl">Drone assigné</div>
+                                            <div class="cmd-est-lbl">Drone selectionne</div>
                                             <div class="cmd-est-val" id="cmd-est-drone">-</div>
+                                        </div>
+                                        <div>
+                                            <div class="cmd-est-lbl">Fin estimee</div>
+                                            <div class="cmd-est-val" id="cmd-est-end">-</div>
                                         </div>
                                     </div>
                                     <button class="cmd-launch" id="cmd-launch-btn" onclick="launchMission()">▶ Lancer la mission</button>

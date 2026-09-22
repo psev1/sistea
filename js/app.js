@@ -49,6 +49,9 @@ function showPage(id, el) {
     if (id === 'live' && typeof window.invalidateLiveMap === 'function') {
         setTimeout(() => window.invalidateLiveMap(), 60);
     }
+    if (id === 'command' && typeof window.invalidateMissionMap === 'function') {
+        setTimeout(() => window.invalidateMissionMap(), 60);
+    }
 }
 
 /* ══ INITIALISATION ══ */
